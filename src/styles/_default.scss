@@ -16,20 +16,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
 
-import Homepage from './pages/Homepage';
-import './App.scss';
-
-class App extends React.Component {
-  render () {
-    return (
-      <Routes>
-        <Route index element={<Homepage />} />
-      </Routes>
-    );
-  }
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-export default App;
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select, a {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+#root {
+  display: contents;
+  isolation: isolate;
+}
+
+h1 {
+  font-size: 1.5em;
+}

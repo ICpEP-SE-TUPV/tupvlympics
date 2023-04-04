@@ -16,20 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+$primary-color: #002b5b;
+$primary-color-contrast: #fff;
 
-import Homepage from './pages/Homepage';
-import './App.scss';
+$secondary-color: #ea5455;
+$secondary-color-contrast: #fff;
 
-class App extends React.Component {
-  render () {
-    return (
-      <Routes>
-        <Route index element={<Homepage />} />
-      </Routes>
-    );
-  }
-}
-
-export default App;
+$tertiary-color: #e4dccf;
+$background-color: #f9f5Eb;

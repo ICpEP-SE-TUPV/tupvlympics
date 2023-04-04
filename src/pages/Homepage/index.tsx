@@ -17,19 +17,14 @@
  */
 
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import Header from '../../components/Header';
 
-import Homepage from './pages/Homepage';
-import './App.scss';
-
-class App extends React.Component {
+class Homepage extends React.Component {
   render () {
     return (
-      <Routes>
-        <Route index element={<Homepage />} />
-      </Routes>
+      <Header page="homepage" />
     );
   }
 }
 
-export default App;
+export default Homepage;
