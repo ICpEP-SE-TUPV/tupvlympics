@@ -1,0 +1,19 @@
+{
+    "name": "TUPVLYMPICS",
+    "short_name": "TUPVLYMPICS",
+    "theme_color": "#002b5b",
+    "background_color": "#002b5b",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ]
+}

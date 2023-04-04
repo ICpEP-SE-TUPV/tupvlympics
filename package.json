@@ -1,7 +1,28 @@
 {
   "name": "tupvlympics",
   "version": "0.1.0",
+  "description": "A simple website for TUPV Intramurals",
   "private": true,
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "tupv",
+    "intramurals",
+    "intrams"
+  ],
+  "bugs": "https://github.com/ICpEP-SE-TUPV/tupvlympics/issues",
+  "license": "",
+  "author": {
+    "name": "Adriane Justine Tan",
+    "email": "eidoriantan@gmail.com",
+    "url": "https://eidoriantan.me"
+  },
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ICpEP-SE-TUPV/tupvlympics.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
