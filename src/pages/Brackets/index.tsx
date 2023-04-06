@@ -16,22 +16,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+import React from 'react';
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+import Header from '../../components/Header';
+import './style.scss';
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+class Brackets extends React.Component {
+  render () {
+    return (
+      <React.Fragment>
+        <Header page="brackets" />
 
-$background-color: #f9f5Eb;
+        <main>
+          <div className="lead">
+            <h1>Page is under construction.</h1>
+          </div>
+        </main>
+      </React.Fragment>
+    );
+  }
+}
 
-$border-color: #ddd;
-$border-error-color: #842029;
-
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+export default Brackets;

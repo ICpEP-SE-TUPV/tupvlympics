@@ -1,0 +1,160 @@
+/**
+ * TUPVLYMPICS
+ * Copyright (C) 2023, ICpEP.SE TUPV
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "../../styles/variables";
+
+.homepage {
+  display: flex;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.homepage-lead {
+  margin-top: 200px;
+  margin-right: 18px;
+  width: 50%;
+  text-align: center;
+
+  h1 {
+    font-family: sans-serif;
+    font-size: 3.6em;
+    font-weight: 900;
+    color: $primary-color;
+  }
+
+  p {
+    margin: auto;
+    width: 70%;
+  }
+}
+
+.homepage-teams {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 45%;
+  margin-top: 115px;
+}
+
+.homepage-team {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transform: skewX(24deg);
+  background-color: $secondary-color;
+  color: $secondary-color-contrast;
+  box-shadow: 0 2px 4px 2px #808080;
+
+  & > * {
+    transform: skewX(-24deg);
+  }
+
+  .homepage-team-pts {
+    flex: 1;
+    text-align: center;
+  
+    h3 { font-size: 2.5em; }
+    p {
+      text-align: end;
+      text-transform: uppercase;
+      color: $primary-color;
+      font-weight: 700;
+      font-size: 1.15em;
+    }
+  }
+
+  &:first-child {
+    margin-bottom: 16px !important;
+  }
+
+  &:not(:first-child) {
+    width: 70%;
+
+    img {
+      width: 80px;
+      height: 80px;
+    }
+
+    h3 { font-size: 2.15em; }
+    p { font-size: 0.8em; }
+  }
+}
+
+.homepage-tabulation-container {
+  margin-top: 200px;
+  text-align: center;
+
+  h2 {
+    color: $secondary-color;
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 2em;
+  }
+}
+
+.homepage-tabulation-scroll {
+  overflow-x: scroll;
+}
+
+.homepage-tabulation {
+  width: 100%;
+  line-height: 1;
+
+  th {
+    max-width: 64px;
+    max-height: 100px;
+    padding-top: 24px;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+  }
+
+  td:not(:first-child) div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 64px;
+    height: 64px;
+    background-color: $secondary-color;
+    color: $secondary-color-contrast;
+    box-shadow: 2px 2px 4px 0 #808080;
+  }
+}
+
+@media (min-width: 0) and (max-width: 992px) {
+  .homepage {
+    display: block;
+  }
+
+  .homepage-lead {
+    width: 100%;
+    margin-top: 24px;
+
+    h1 { font-size: 3em; }
+  }
+
+  .homepage-teams {
+    width: 100%;
+    align-items: center;
+  }
+
+  .homepage-team {
+    width: 80%;
+  }
+}

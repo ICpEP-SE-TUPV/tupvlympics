@@ -16,22 +16,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+export const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+export function formatDate (dateStr: string, value: boolean = false) {
+  const date = new Date(dateStr);
+  const year = date.getFullYear().toString();
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
-
-$background-color: #f9f5Eb;
-
-$border-color: #ddd;
-$border-error-color: #842029;
-
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+  if (!value) {
+    const month = MONTHS[date.getMonth()];
+    const day = date.getDate().toString();
+    return `${month} ${day}, ${year}`;
+  } else {
+    let month = (date.getMonth() + 1).toString();
+    while (month.length < 2) month = `0${month}`;
+    let day = date.getDate().toString();
+    while (day.length < 2) day = `0${day}`;
+    return `${year}-${month}-${day}`;
+  }
+}

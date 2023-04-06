@@ -20,6 +20,11 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Homepage from './pages/Homepage';
+import Schedules from './pages/Schedules';
+import Teams from './pages/Teams';
+import Brackets from './pages/Brackets';
+import Admin from './pages/Admin';
+import AdminDashboard from './pages/AdminDashboard';
 import './App.scss';
 
 class App extends React.Component {
@@ -27,6 +32,13 @@ class App extends React.Component {
     return (
       <Routes>
         <Route index element={<Homepage />} />
+        <Route path="/schedules" element={<Schedules />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/brackets" element={<Brackets />} />
+        <Route path="/admin">
+          <Route index element={<Admin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     );
   }

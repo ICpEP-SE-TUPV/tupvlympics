@@ -16,22 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+@import "../../styles/variables";
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+.schedule-list {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+.schedule-day-container {
+  text-align: center;
 
-$background-color: #f9f5Eb;
+  small { font-weight: 700; }
+}
 
-$border-color: #ddd;
-$border-error-color: #842029;
+.schedule-day {
+  width: 225px;
+  border-radius: 16px;
+  background-color: $tertiary-color;
+  color: $tertiary-color-contrast;
 
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+  p {
+    margin-bottom: 12px;
+  }
+}

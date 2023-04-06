@@ -16,22 +16,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+export interface Team {
+  id: string;
+  name: string;
+  courses: string;
+  score: number;
+  tabulation?: number[];
+}
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+export interface Category {
+  id: string;
+  name: string;
+}
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
-
-$background-color: #f9f5Eb;
-
-$border-color: #ddd;
-$border-error-color: #842029;
-
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+export interface Schedule {
+  id: string;
+  date: string;
+  text: string;
+}

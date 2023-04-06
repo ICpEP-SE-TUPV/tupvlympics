@@ -16,22 +16,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+const mysql = require('mysql')
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+const connection = mysql.createConnection({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASS,
+  database: process.env.MYSQL_DATABASE
+})
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+const connectAsync = new Promise((resolve, reject) => {
+  connection.connect((err) => {
+    if (err) {
+      console.error(err)
+      reject(err)
+      return
+    }
 
-$background-color: #f9f5Eb;
+    resolve()
+  })
+})
 
-$border-color: #ddd;
-$border-error-color: #842029;
+async function query (sql, data) {
+  await connectAsync
+  return new Promise((resolve, reject) => {
+    connection.query(sql, data, (err, results, fields) => {
+      if (err) {
+        console.error(err)
+        reject(err)
+        return
+      }
 
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
+      resolve(results)
+    })
+  })
+}
 
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+module.exports = { query }

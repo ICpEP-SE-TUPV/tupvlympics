@@ -16,22 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+.form-group {
+  display: block;
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+  label {
+    display: block;
+  }
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+  input[type="text"],
+  input[type="password"],
+  input[type="file"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+  }
+}
 
-$background-color: #f9f5Eb;
+.form-control {
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  appearance: none;
 
-$border-color: #ddd;
-$border-error-color: #842029;
-
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+  &:focus {
+    border-color: $primary-color;
+    outline: 0;
+  }
+}

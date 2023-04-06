@@ -16,22 +16,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+.dashboard-admin {
+  display: flex;
+  align-items: flex-start;
+}
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+.dashboard-sidenav {
+  width: 200px;
+  margin-right: 1rem;
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+  & > .list-group { width: 100%; }
+}
 
-$background-color: #f9f5Eb;
+.dashboard-card {
+  flex: 1;
+}
 
-$border-color: #ddd;
-$border-error-color: #842029;
+@media (min-width: 0) and (max-width: 992px) {
+  .dashboard-admin {
+    flex-direction: column;
+    align-items: center;
+  }
 
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
+  .dashboard-sidenav {
+    width: 100%;
+    margin-right: 0;
+  }
 
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+  .dashboard-card {
+    margin-top: 16px;
+    width: 100%;
+  }
+}

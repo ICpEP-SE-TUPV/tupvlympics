@@ -16,22 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+@import "./variables";
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+.list-group {
+  display: flex;
+  flex-direction: column;
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+  & > button {
+    padding: 0.5rem 1rem;
+    background-color: $card-background-color;
+    border: 1px solid $border-color;
+    border-bottom: 0;
+    cursor: pointer;
 
-$background-color: #f9f5Eb;
+    &.active {
+      background-color: $primary-color;
+      color: $primary-color-contrast;
+    }
+  }
 
-$border-color: #ddd;
-$border-error-color: #842029;
-
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+  & > *:last-child {
+    border-bottom: 1px solid $border-color;
+  }
+}

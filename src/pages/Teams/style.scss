@@ -16,22 +16,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$primary-color: #002b5b;
-$primary-color-contrast: #fff;
+.teams-main {
+  padding: 80px 100px;
+}
 
-$secondary-color: #ea5455;
-$secondary-color-contrast: #fff;
+.teams-team {
+  display: flex;
 
-$tertiary-color: #e4dccf;
-$tertiary-color-contrast: #000;
+  .teams-team-details {
+    flex: 1;
+    text-align: center;
 
-$background-color: #f9f5Eb;
+    h2 {
+      text-transform: uppercase;
+      font-size: 2.75em;
+    }
 
-$border-color: #ddd;
-$border-error-color: #842029;
+    p {
+      font-size: 1.25em;
+    }
+  }
+}
 
-$card-background-color: #fff;
-$card-background-color-contrast: #000;
-
-$sizes: 0, .25, .5, 1, 1.5, 3;
-$spacing: 1rem;
+@media (min-width: 0) and (max-width: 992px) {
+  .teams-team {
+    flex-direction: column;
+    align-items: center;
+  }
+}

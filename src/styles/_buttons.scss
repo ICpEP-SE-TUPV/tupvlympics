@@ -1,0 +1,65 @@
+/**
+ * TUPVLYMPICS
+ * Copyright (C) 2023, ICpEP.SE TUPV
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@use "sass:color";
+
+@import "./variables";
+
+.btn {
+  display: inline-block;
+  padding: 0.375em 0.75em;
+  line-height: 1.5;
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 4px;
+
+  &:not(:disabled):hover {
+    cursor: pointer;
+  }
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: $primary-color-contrast;
+
+  &:not(:disabled):hover, &:not(:disabled):focus {
+    background-color: color.scale($primary-color, $blackness: 20%);
+  }
+
+  &:disabled {
+    background-color: color.scale($primary-color, $lightness: 50%);
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary-color;
+  color: $secondary-color-contrast;
+
+  &:not(:disabled):hover, &:not(:disabled):focus {
+    background-color: color.scale($secondary-color, $blackness: 20%);
+  }
+
+  &:disabled {
+    background-color: color.scale($secondary-color, $lightness: 20%);
+  }
+}

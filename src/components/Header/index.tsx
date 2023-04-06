@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as MenuIcon } from '../../assets/bars.svg';
 import './style.scss';
 
-type HeaderPage = "homepage" | "schedules" | "teams" | "brackets";
+type HeaderPage = "homepage" | "schedules" | "teams" | "brackets" | "admin";
 
 interface HeaderProps {
   page: HeaderPage;
@@ -64,7 +64,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           <Link to="/schedules" className={ page === 'schedules' ? 'active' : '' }>SCHEDULES</Link>
           <Link to="/teams" className={ page === 'teams' ? 'active' : '' }>TEAMS</Link>
           <Link to="/brackets" className={ page === 'brackets' ? 'active' : '' }>BRACKETS</Link>
-          <Link to="/admin" className="page-header-nav-admin">
+          <Link to="/admin" className={ 'page-header-nav-admin' + (page === 'admin' ? ' active' : '') }>
             <img src="/imgs/admin.png" alt="Admin access" width={32} height={32} />
             <span>ADMIN</span>
             <span>ACCESS</span>
