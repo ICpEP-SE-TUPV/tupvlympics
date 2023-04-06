@@ -157,4 +157,68 @@ router.post('/teams', uploadLogo, asyncWrap(async (req, res) => {
   })
 }))
 
+router.post('/teams/:id', upload.any(), asyncWrap(async (req, res) => {
+  const id = req.params.id
+  const logo = req.files.length > 0 ? req.files[0] : undefined
+  const name = req.body.name
+  const courses = req.body.courses
+  const auth = req.get('Authorization')
+  const jwtSecret = process.env.JWT_SECRET
+  const jwtIssuer = process.env.JWT_ISSUER
+
+  try {
+    if (!auth.match(/^(Bearer ([\w-]*\.[\w-]*\.[\w-]*))$/i)) throw new Error('Invalid token')
+
+    const token = auth.split(' ')[1]
+    jwt.verify(token, jwtSecret, {
+      issuer: jwtIssuer,
+      subject: 'Login Token'
+    })
+  } catch (error) {
+    res.json({
+      success: false,
+      message: 'Invalid token'
+    })
+    return
+  }
+
+  await database.query('UPDATE teams SET name=?, courses=? WHERE id=?', [name, courses, id])
+  if (logo) {
+    const logosPath = path.resolve(__dirname, '../data/')
+    const files = await fs.promises.readdir(logosPath)
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
+      if (file.startsWith(`logo-${id}.`)) {
+        const fullPath = path.resolve(logosPath, file)
+        await fs.promises.unlink(fullPath)
+        break
+      }
+    }
+
+    let ext = ''
+    switch (logo.mimetype) {
+      case 'image/png':
+        ext = 'png'
+        break
+
+      case 'image/jpeg':
+      case 'image/jpg':
+        ext = 'jpg'
+        break
+
+      case 'image/svg+xml':
+        ext = 'svg'
+        break
+    }
+
+    const logoPath = path.resolve(__dirname, '../data/', `logo-${id}.${ext}`)
+    await fs.promises.writeFile(logoPath, logo.buffer)
+  }
+
+  res.json({
+    success: true,
+    message: ''
+  })
+}))
+
 module.exports = router

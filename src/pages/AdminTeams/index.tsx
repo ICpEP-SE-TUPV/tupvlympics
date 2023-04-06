@@ -27,10 +27,12 @@ interface AdminTeamsProps {}
 interface AdminTeamsState {
   teams: Team[];
   logo: File | null;
+  id: string;
   name: string;
   courses: string;
   error: string;
   adding: boolean;
+  editing: boolean;
 }
 
 class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
@@ -40,14 +42,18 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
     this.state = {
       teams: [],
       logo: null,
+      id: '',
       name: '',
       courses: '',
       error: '',
-      adding: false
+      adding: false,
+      editing: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.addTeam = this.addTeam.bind(this);
+    this.edit = this.edit.bind(this);
+    this.editTeam = this.editTeam.bind(this);
   }
 
   handleChange (event: React.ChangeEvent) {
@@ -109,6 +115,59 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
     this.setState({ adding: false });
   }
 
+  async editTeam (event: React.MouseEvent) {
+    event.preventDefault();
+
+    this.setState({ error: '', editing: true });
+
+    const token = sessionStorage.getItem('token');
+    if (token === null) return;
+
+    const backend = process.env.REACT_APP_BACKEND_API;
+    const logo = this.state.logo;
+    const id = this.state.id;
+    const name = this.state.name;
+    const courses = this.state.courses;
+
+    const formData = new FormData();
+    if (logo) formData.set('logo', logo);
+    formData.set('name', name);
+    formData.set('courses', courses);
+
+    try {
+      const res = await axios.post(`${backend}/api/teams/${id}`, formData, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (res.data.success) {
+        await this.loadTeams();
+        this.setState({
+          logo: null,
+          name: '',
+          courses: ''
+        });
+      } else {
+        this.setState({ error: res.data.message });
+      }
+    } catch (error) {
+      this.setState({ error: 'Unable to send request' });
+    }
+
+    this.setState({ editing: false });
+  }
+
+  edit (index: number) {
+    return (event: React.MouseEvent) => {
+      const team = this.state.teams[index];
+      this.setState({
+        logo: null,
+        id: team.id,
+        name: team.name,
+        courses: team.courses
+      });
+    }
+  }
+
   removeTeam (id: string) {
     return async (event: React.MouseEvent) => {
       try {
@@ -146,15 +205,17 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
 
   render () {
     const backend = process.env.REACT_APP_BACKEND_API;
+    const timestamp = Date.now();
     const teams: React.ReactNode[] = [];
     for (let i = 0; i < this.state.teams.length; i++) {
       const team = this.state.teams[i];
       teams.push(
         <div className="admin-team mt-3" key={i}>
-          <img src={`${backend}/api/teams/${team.id}/logo`} alt={`${team.name} Logo`} width={100} height={100} className="mr-3" />
+          <img src={`${backend}/api/teams/${team.id}/logo?t=${timestamp}`} alt={`${team.name} Logo`} width={100} height={100} className="mr-3" />
           <div className="px-2">
             <h3>{ team.name }</h3>
             <p>{ team.courses }</p>
+            <button type="button" className="btn btn-primary mr-2" onClick={this.edit(i)}>Edit</button>
             <button type="button" className="btn btn-secondary mt-2" onClick={this.removeTeam(team.id)}>Remove team</button>
           </div>
         </div>
@@ -193,7 +254,8 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
             </div>
           }
 
-          <button type="submit" className="btn btn-primary" disabled={this.state.adding}>Submit</button>
+          <button type="submit" className="btn btn-primary mr-2" disabled={this.state.adding}>Submit</button>
+          <button type="button" className="btn btn-secondary" disabled={this.state.editing} onClick={this.editTeam}>Edit</button>
         </form>
       </React.Fragment>
     );
