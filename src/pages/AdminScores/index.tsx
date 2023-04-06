@@ -145,7 +145,7 @@ class AdminScores extends React.Component<AdminScoresProps, AdminScoresState> {
     return (
       <React.Fragment>
         <form action={`${backend}/api/scores`} method="post" className="card px-3 py-2" onSubmit={this.setScore}>
-          <h3 className="mb-2">Scores</h3>
+          <h3 className="mb-2">SCORES</h3>
 
           <div className="form-group mb-2">
             <label htmlFor="score-team-name">Team:</label>
