@@ -16,12 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@import "../../styles/variables";
+
 .admin-categories {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .admin-category {
-  display: flex;
-  align-items: flex-start;
+  max-width: 200px;
+  border: 1px solid $border-color;
 }

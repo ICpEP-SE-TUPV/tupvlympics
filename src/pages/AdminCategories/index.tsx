@@ -20,6 +20,7 @@ import React from 'react';
 import axios from 'axios';
 
 import { Category } from '../../types';
+import './style.scss';
 
 interface AdminCategoriesProps {}
 
@@ -123,7 +124,7 @@ class AdminCategories extends React.Component<AdminCategoriesProps, AdminCategor
     for (let i = 0; i < this.state.categories.length; i++) {
       const category = this.state.categories[i];
       categories.push(
-        <div className="admin-category mt-3 px-2" key={i}>
+        <div className="admin-category my-2 mx-2 p-3" key={i}>
           <h3>{ category.name }</h3>
           <button type="button" className="btn btn-secondary mt-2" onClick={this.removeCategory(category.id)}>Remove category</button>
         </div>
