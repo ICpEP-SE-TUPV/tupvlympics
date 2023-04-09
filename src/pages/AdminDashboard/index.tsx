@@ -24,9 +24,10 @@ import AdminTeams from '../AdminTeams';
 import AdminCategories from '../AdminCategories';
 import AdminScores from '../AdminScores';
 import AdminCalendar from '../AdminCalendar';
+import AdminBrackets from '../AdminBrackets';
 import './style.scss';
 
-type Tab = 'teams' | 'categories' | 'scores' | 'calendar';
+type Tab = 'teams' | 'categories' | 'scores' | 'calendar' | 'brackets';
 
 interface AdminDashboardWrapProps {}
 
@@ -77,6 +78,7 @@ class AdminDashboard extends React.Component<AdminDashboardProps, AdminDashboard
               <button type="button" onClick={this.nav('categories')} className={activeTab === 'categories' ? 'active' : ''}>Categories</button>
               <button type="button" onClick={this.nav('scores')} className={activeTab === 'scores' ? 'active' : ''}>Scores</button>
               <button type="button" onClick={this.nav('calendar')} className={activeTab === 'calendar' ? 'active' : ''}>Calendar</button>
+              <button type="button" onClick={this.nav('brackets')} className={activeTab === 'brackets' ? 'active' : ''}>Brackets</button>
             </nav>
 
             <button type="button" onClick={this.logout} className="btn btn-secondary btn-block mt-3">Log Out</button>
@@ -87,6 +89,7 @@ class AdminDashboard extends React.Component<AdminDashboardProps, AdminDashboard
             { activeTab === 'categories' && <AdminCategories /> }
             { activeTab === 'scores' && <AdminScores /> }
             { activeTab === 'calendar' && <AdminCalendar /> }
+            { activeTab === 'brackets' && <AdminBrackets /> }
           </div>
         </main>
       </React.Fragment>

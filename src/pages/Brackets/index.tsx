@@ -17,20 +17,70 @@
  */
 
 import React from 'react';
+import axios from 'axios';
 
 import Header from '../../components/Header';
+import { Category } from '../../types';
 import './style.scss';
 
-class Brackets extends React.Component {
+interface BracketsProps {}
+
+interface BracketsState {
+  categories: Category[];
+  active: number;
+}
+
+class Brackets extends React.Component<BracketsProps, BracketsState> {
+  constructor (props: BracketsProps) {
+    super(props);
+
+    this.state = {
+      categories: [],
+      active: 0
+    };
+
+    this.loadCategories = this.loadCategories.bind(this);
+    this.nav = this.nav.bind(this);
+  }
+
+  async loadCategories () {
+    try {
+      const backend = process.env.REACT_APP_BACKEND_API;
+      const categoriesRes = await axios.get(`${backend}/api/categories?embed`);
+      if (categoriesRes.data.success) {
+        const categories = categoriesRes.data.categories;
+        this.setState({ categories });
+      }
+    } catch (error) {
+      window.alert('Unable to fetch categories');
+    }
+  }
+
+  nav (index: number) {
+    return (event: React.MouseEvent) => {
+      this.setState({ active: index });
+    }
+  }
+
+  async componentDidMount () {
+    await this.loadCategories();
+  }
+
   render () {
     return (
       <React.Fragment>
         <Header page="brackets" />
 
-        <main>
-          <div className="lead">
-            <h1>Page is under construction.</h1>
+        <main className="brackets-main p-5">
+          <div className="brackets-nav mx-3">
+            { this.state.categories.map((category, i) => {
+              return <button type="button" className={'bracket-btn my-1' + (this.state.active == i ? ' active' : '')} onClick={this.nav(i)} key={i}>{ category.name }</button>;
+            })}
           </div>
+
+          { this.state.categories.length > 0 &&
+            <div className="brackets-bracket" dangerouslySetInnerHTML={{__html: this.state.categories[this.state.active].embed}}></div>
+          }
         </main>
       </React.Fragment>
     );

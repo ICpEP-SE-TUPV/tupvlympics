@@ -25,12 +25,14 @@ const asyncWrap = require('./utils/async-wrap')
 const router = express.Router()
 
 router.get('/categories', asyncWrap(async (req, res) => {
-  const results = await database.query('SELECT * FROM categories')
+  const embed = typeof req.query.embed !== 'undefined'
+  const results = await database.query('SELECT * FROM categories' + (embed ? ' WHERE brackethq != ""' : ''))
   const categories = []
   results.forEach((result) => {
     categories.push({
       id: result.id,
-      name: result.name
+      name: result.name,
+      embed: result.brackethq
     })
   })
 
@@ -65,6 +67,36 @@ router.delete('/categories/:id', asyncWrap(async (req, res) => {
 
   await database.query('DELETE FROM scores WHERE category=?', [id])
   await database.query('DELETE FROM categories WHERE id=?', [id])
+  res.json({
+    success: true,
+    message: ''
+  })
+}))
+
+router.post('/categories/:id/embed', asyncWrap(async (req, res) => {
+  const id = req.params.id
+  const embed = req.body.embed
+  const auth = req.get('Authorization')
+  const jwtSecret = process.env.JWT_SECRET
+  const jwtIssuer = process.env.JWT_ISSUER
+
+  try {
+    if (!auth.match(/^(Bearer ([\w-]*\.[\w-]*\.[\w-]*))$/i)) throw new Error('Invalid token')
+
+    const token = auth.split(' ')[1]
+    jwt.verify(token, jwtSecret, {
+      issuer: jwtIssuer,
+      subject: 'Login Token'
+    })
+  } catch (error) {
+    res.json({
+      success: false,
+      message: 'Invalid token'
+    })
+    return
+  }
+
+  await database.query('UPDATE categories SET brackethq=? WHERE id=?', [embed, id])
   res.json({
     success: true,
     message: ''

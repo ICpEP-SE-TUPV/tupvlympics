@@ -15,37 +15,3 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-@import "../../styles/variables";
-
-.brackets-main {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-
-.brackets-nav {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-}
-
-.brackets-bracket {
-  flex: 1;
-}
-
-.bracket-btn {
-  padding: 0.5em 0.75em;
-  background-color: $primary-color;
-  color: $primary-color-contrast;
-  border: 1px solid $primary-color;
-  border-radius: 8px;
-  font-family: sans-serif;
-  font-weight: 900;
-  cursor: pointer;
-
-  &.active {
-    background-color: transparent;
-    color: $secondary-color;
-  }
-}
