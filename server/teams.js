@@ -97,6 +97,26 @@ router.get('/teams/:id/logo', asyncWrap(async (req, res) => {
 
 router.delete('/teams/:id', asyncWrap(async (req, res) => {
   const id = req.params.id
+  const auth = req.get('Authorization')
+  const jwtSecret = process.env.JWT_SECRET
+  const jwtIssuer = process.env.JWT_ISSUER
+
+  try {
+    if (!auth.match(/^(Bearer ([\w-]*\.[\w-]*\.[\w-]*))$/i)) throw new Error('Invalid token')
+
+    const token = auth.split(' ')[1]
+    jwt.verify(token, jwtSecret, {
+      issuer: jwtIssuer,
+      subject: 'Login Token'
+    })
+  } catch (error) {
+    res.json({
+      success: false,
+      message: 'Invalid token'
+    })
+    return
+  }
+
   await database.query('DELETE FROM scores WHERE team=?', [id])
   await database.query('DELETE FROM teams WHERE id=?', [id])
   res.json({
