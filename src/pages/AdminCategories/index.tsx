@@ -96,7 +96,7 @@ class AdminCategories extends React.Component<AdminCategoriesProps, AdminCategor
     }
   }
 
-  removeCategory (id: string) {
+  removeCategory (id: number) {
     return async (event: React.MouseEvent) => {
       try {
         const backend = process.env.REACT_APP_BACKEND_API;

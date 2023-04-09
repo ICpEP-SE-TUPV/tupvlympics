@@ -17,7 +17,7 @@
  */
 
 export interface Team {
-  id: string;
+  id: number;
   name: string;
   courses: string;
   score: number;
@@ -25,12 +25,13 @@ export interface Team {
 }
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
+  embed: string;
 }
 
 export interface Schedule {
-  id: string;
+  id: number;
   date: string;
   text: string;
 }

@@ -27,7 +27,7 @@ import './style.scss';
 interface AdminCalendarProps {}
 
 interface AdminCalendarState {
-  id: string;
+  id: number;
   date: string;
   text: string;
   error: string;
@@ -41,7 +41,7 @@ class AdminCalendar extends React.Component<AdminCalendarProps, AdminCalendarSta
     super(props);
 
     this.state = {
-      id: '',
+      id: 0,
       date: '',
       text: '',
       error: '',
@@ -139,7 +139,7 @@ class AdminCalendar extends React.Component<AdminCalendarProps, AdminCalendarSta
     const id = this.state.id;
     const date = this.state.date;
     const text = this.state.text;
-    if (id === '') return;
+    if (id === 0) return;
 
     try {
       const res = await axios.post(`${backend}/api/schedule/${id}`, { text, date }, {

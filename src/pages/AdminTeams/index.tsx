@@ -27,7 +27,7 @@ interface AdminTeamsProps {}
 interface AdminTeamsState {
   teams: Team[];
   logo: File | null;
-  id: string;
+  id: number;
   name: string;
   courses: string;
   error: string;
@@ -42,7 +42,7 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
     this.state = {
       teams: [],
       logo: null,
-      id: '',
+      id: 0,
       name: '',
       courses: '',
       error: '',
@@ -168,7 +168,7 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
     }
   }
 
-  removeTeam (id: string) {
+  removeTeam (id: number) {
     return async (event: React.MouseEvent) => {
       try {
         const backend = process.env.REACT_APP_BACKEND_API;
