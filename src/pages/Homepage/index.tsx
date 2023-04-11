@@ -21,6 +21,7 @@ import axios from 'axios';
 
 import { Team, Category } from '../../types';
 import Header from '../../components/Header';
+import tupvlympicsLogo from '../../assets/logo.png';
 import './style.scss';
 
 interface HomepageProps {}
@@ -83,6 +84,7 @@ class Homepage extends React.Component<HomepageProps, HomepageState> {
         <main>
           <div className="homepage">
             <div className="homepage-lead">
+              <img src={tupvlympicsLogo} alt="tupvlympics logo" width={400} height={400} />
               <h1>OVERALL STANDING OF TEAMS</h1>
               <p>Tallied based on the points equivalent per event. Tally is still tentative and might change based on the succeeding events until April 22, 2023.</p>
             </div>

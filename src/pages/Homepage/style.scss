@@ -25,12 +25,18 @@
 }
 
 .homepage-lead {
-  margin-top: 200px;
   margin-right: 18px;
   width: 50%;
   text-align: center;
 
+  img {
+    width: 400px;
+    height: 400px;
+    margin: auto;
+  }
+
   h1 {
+    margin-top: -32px;
     font-family: sans-serif;
     font-size: 3.6em;
     font-weight: 900;
@@ -144,7 +150,6 @@
 
   .homepage-lead {
     width: 100%;
-    margin-top: 24px;
 
     h1 { font-size: 3em; }
   }
