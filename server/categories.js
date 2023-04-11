@@ -26,14 +26,53 @@ const router = express.Router()
 
 router.get('/categories', asyncWrap(async (req, res) => {
   const embed = typeof req.query.embed !== 'undefined'
+  const maincategory = typeof req.query.maincategory !== 'undefined'
   const results = await database.query('SELECT * FROM categories' + (embed ? ' WHERE brackethq != ""' : ''))
   const categories = []
   results.forEach((result) => {
-    categories.push({
-      id: result.id,
-      name: result.name,
-      embed: result.brackethq
-    })
+    if (maincategory) {
+      if (result.maincategory !== '') {
+        let added = -1
+        for (let i = 0; i < categories.length; i++) {
+          const category = categories[i]
+          if (category.name === result.maincategory) {
+            added = i
+            break
+          }
+        }
+
+        const matches = result.name.match(/^(.+) \((.+)\)$/)
+        if (matches === null) return
+        const subName = matches[2]
+
+        if (added < 0) {
+          categories.push({
+            ids: [result.id],
+            name: result.maincategory,
+            subs: [subName],
+            embed: [result.brackethq]
+          })
+        } else {
+          categories[added].ids.push(result.id)
+          categories[added].subs.push(subName)
+          categories[added].embed.push(result.brackethq)
+        }
+      } else {
+        categories.push({
+          ids: [result.id],
+          name: result.name,
+          subs: [],
+          embed: result.brackethq
+        })
+      }
+    } else {
+      categories.push({
+        id: result.id,
+        name: result.name,
+        maincategory: result.maincategory,
+        embed: result.brackethq
+      })
+    }
   })
 
   res.json({
@@ -105,6 +144,7 @@ router.post('/categories/:id/embed', asyncWrap(async (req, res) => {
 
 router.post('/categories', asyncWrap(async (req, res) => {
   const name = req.body.name
+  const subsStr = req.body.subs
   const auth = req.get('Authorization')
   const jwtSecret = process.env.JWT_SECRET
   const jwtIssuer = process.env.JWT_ISSUER
@@ -125,7 +165,17 @@ router.post('/categories', asyncWrap(async (req, res) => {
     return
   }
 
-  await database.query('INSERT INTO categories (name) VALUES (?)', [name])
+  if (subsStr === '') await database.query('INSERT INTO categories (name) VALUES (?)', [name])
+  else {
+    const subs = subsStr.split(',').map(sub => sub.trim())
+    const query = 'INSERT INTO categories (name, maincategory) VALUES (?, ?)'
+    for (let i = 0; i < subs.length; i++) {
+      const sub = subs[i]
+      const subName = `${name} (${sub})`
+      await database.query(query, [subName, name])
+    }
+  }
+
   res.json({
     success: true,
     message: ''

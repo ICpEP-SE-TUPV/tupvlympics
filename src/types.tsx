@@ -27,7 +27,15 @@ export interface Team {
 export interface Category {
   id: number;
   name: string;
+  maincategory: string;
   embed: string;
+}
+
+export interface CategoryBracket {
+  ids: number[];
+  name: '',
+  subs: string[];
+  embed: string[] | string;
 }
 
 export interface Schedule {

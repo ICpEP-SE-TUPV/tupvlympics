@@ -26,6 +26,7 @@ interface AdminCategoriesProps {}
 
 interface AdminCategoriesState {
   name: string;
+  subs: string;
   error: string;
   adding: boolean;
   categories: Category[];
@@ -37,6 +38,7 @@ class AdminCategories extends React.Component<AdminCategoriesProps, AdminCategor
 
     this.state = {
       name: '',
+      subs: '',
       error: '',
       adding: false,
       categories: []
@@ -64,15 +66,16 @@ class AdminCategories extends React.Component<AdminCategoriesProps, AdminCategor
 
     const form = event.target as HTMLFormElement;
     const name = this.state.name;
+    const subs = this.state.subs;
 
     try {
-      const res = await axios.post(form.action, { name }, {
+      const res = await axios.post(form.action, { name, subs }, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
       if (res.data.success) {
         await this.loadCategories();
-        this.setState({ name: '' });
+        this.setState({ name: '', subs: '' });
       } else {
         this.setState({ error: res.data.message });
       }
@@ -144,6 +147,11 @@ class AdminCategories extends React.Component<AdminCategoriesProps, AdminCategor
           <div className="form-group mb-2">
             <label htmlFor="category-name">Category:</label>
             <input type="text" id="category-name" name="name" value={this.state.name} className="form-control" autoComplete="off" onChange={this.handleChange} required />
+          </div>
+
+          <div className="form-group mb-2">
+            <label htmlFor="category-subs">Subcategories (comma-separated) (Optional):</label>
+            <input type="text" id="category-subs" name="subs" value={this.state.subs} className="form-control" autoComplete="off" onChange={this.handleChange} />
           </div>
 
           {

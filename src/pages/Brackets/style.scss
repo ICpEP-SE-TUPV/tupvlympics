@@ -27,14 +27,19 @@
 .brackets-nav {
   display: flex;
   flex-direction: column;
-  width: 200px;
 }
 
 .brackets-bracket {
   flex: 1;
 }
 
+.brackets-btn-container {
+  display: flex;
+  align-items: center;
+}
+
 .bracket-btn {
+  width: 150px;
   padding: 0.5em 0.75em;
   background-color: $primary-color;
   color: $primary-color-contrast;
@@ -47,5 +52,31 @@
   &.active {
     background-color: transparent;
     color: $secondary-color;
+  }
+}
+
+.brackets-subs {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24px;
+
+  .bracket-btn {
+    width: auto;
+    padding: 0.375em 0.5em;
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 0) and (max-width: 992px) {
+  .brackets-main {
+    flex-direction: column;
+  }
+
+  .brackets-bracket {
+    width: 100%;
+  }
+
+  .brackets-btn-container {
+    flex-direction: column;
   }
 }
