@@ -20,7 +20,6 @@ import React from 'react';
 import axios from 'axios';
 
 import { Category } from '../../types';
-import './style.scss';
 
 interface AdminBracketsProps {}
 
