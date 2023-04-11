@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 09, 2023 at 05:08 AM
+-- Generation Time: Apr 11, 2023 at 04:46 AM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'Category ID',
   `name` varchar(255) NOT NULL COMMENT 'Category name',
+  `maincategory` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'Main category title if this is a subcategory',
   `brackethq` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'Bracket HQ generated embed',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
