@@ -193,7 +193,8 @@ router.post('/categories', asyncWrap(async (req, res) => {
     return
   }
 
-  if (subsStr === '') await database.query('INSERT INTO categories (name) VALUES (?)', [name])
+  const query = 'INSERT INTO categories (name, maincategory) VALUES (?, ?)'
+  if (subsStr === '') await database.query(query, [name, name])
   else {
     const subs = subsStr.split(',').map(sub => sub.trim())
     const query = 'INSERT INTO categories (name, maincategory) VALUES (?, ?)'

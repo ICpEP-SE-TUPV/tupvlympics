@@ -165,7 +165,7 @@ class AdminScores extends React.Component<AdminScoresProps, AdminScoresState> {
               <option value=""></option>
               {
                 this.state.categories.map((category, i) => {
-                  return <option value={category.id} key={i}>{ category.maincategory !== '' ? category.maincategory : category.name }</option>;
+                  return <option value={category.id} key={i}>{ category.maincategory }</option>;
                 })
               }
             </select>

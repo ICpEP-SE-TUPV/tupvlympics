@@ -128,7 +128,7 @@ class AdminCategories extends React.Component<AdminCategoriesProps, AdminCategor
       const category = this.state.categories[i];
       categories.push(
         <div className="admin-category my-2 mx-2 p-3" key={i}>
-          <h3>{ category.maincategory !== '' ? category.maincategory : category.name }</h3>
+          <h3>{ category.maincategory }</h3>
           <button type="button" className="btn btn-secondary mt-2" onClick={this.removeCategory(category.id)}>Remove category</button>
         </div>
       );
