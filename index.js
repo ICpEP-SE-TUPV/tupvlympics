@@ -26,9 +26,6 @@ let configPath = path.resolve(__dirname, '.env.local')
 if (!fs.existsSync(configPath)) configPath = path.resolve(__dirname, '.env')
 dotenv.config({ path: configPath })
 
-const dataPath = path.resolve(__dirname, 'data')
-if (!fs.existsSync(dataPath)) fs.mkdirSync(dataPath)
-
 const api = require('./server/api')
 const app = express()
 const port = process.env.PORT || '3001'

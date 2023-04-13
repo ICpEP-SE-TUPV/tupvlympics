@@ -16,8 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const fs = require('fs')
-const path = require('path')
 const express = require('express')
 const multer = require('multer')
 const jwt = require('jsonwebtoken')
@@ -81,18 +79,14 @@ router.get('/teams', asyncWrap(async (req, res) => {
 
 router.get('/teams/:id/logo', asyncWrap(async (req, res) => {
   const id = req.params.id
-  const logosPath = path.resolve(__dirname, '../data/')
-  const files = await fs.promises.readdir(logosPath)
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    if (file.startsWith(`logo-${id}.`)) {
-      const fullPath = path.resolve(logosPath, file)
-      res.sendFile(fullPath)
-      return
-    }
+  const query = 'SELECT logo FROM teams WHERE id=?'
+  const results = await database.query(query, [id])
+  if (results.length === 0) {
+    res.send('File not found')
+    return
   }
 
-  res.send('File not found')
+  res.send(results[0].logo)
 }))
 
 router.delete('/teams/:id', asyncWrap(async (req, res) => {
@@ -149,28 +143,7 @@ router.post('/teams', uploadLogo, asyncWrap(async (req, res) => {
     return
   }
 
-  const results = await database.query('INSERT INTO teams (name, courses) VALUES (?, ?)', [name, courses])
-  const id = results.insertId
-  let ext = ''
-
-  switch (logo.mimetype) {
-    case 'image/png':
-      ext = 'png'
-      break
-
-    case 'image/jpeg':
-    case 'image/jpg':
-      ext = 'jpg'
-      break
-
-    case 'image/svg+xml':
-      ext = 'svg'
-      break
-  }
-
-  const logoPath = path.resolve(__dirname, '../data/', `logo-${id}.${ext}`)
-  await fs.promises.writeFile(logoPath, logo.buffer)
-
+  await database.query('INSERT INTO teams (name, courses, logo) VALUES (?, ?, ?)', [name, courses, logo.buffer])
   res.json({
     success: true,
     message: ''
@@ -204,35 +177,7 @@ router.post('/teams/:id', upload.any(), asyncWrap(async (req, res) => {
 
   await database.query('UPDATE teams SET name=?, courses=? WHERE id=?', [name, courses, id])
   if (logo) {
-    const logosPath = path.resolve(__dirname, '../data/')
-    const files = await fs.promises.readdir(logosPath)
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      if (file.startsWith(`logo-${id}.`)) {
-        const fullPath = path.resolve(logosPath, file)
-        await fs.promises.unlink(fullPath)
-        break
-      }
-    }
-
-    let ext = ''
-    switch (logo.mimetype) {
-      case 'image/png':
-        ext = 'png'
-        break
-
-      case 'image/jpeg':
-      case 'image/jpg':
-        ext = 'jpg'
-        break
-
-      case 'image/svg+xml':
-        ext = 'svg'
-        break
-    }
-
-    const logoPath = path.resolve(__dirname, '../data/', `logo-${id}.${ext}`)
-    await fs.promises.writeFile(logoPath, logo.buffer)
+    await database.query('UPDATE teams SET logo=? WHERE id=?', [logo.buffer, id])
   }
 
   res.json({
