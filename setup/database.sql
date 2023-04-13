@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 11, 2023 at 04:46 AM
+-- Generation Time: Apr 13, 2023 at 02:25 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `tupvlympics`
 --
-CREATE DATABASE IF NOT EXISTS `tupvlympics` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `tupvlympics`;
 
 -- --------------------------------------------------------
 
@@ -80,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `teams` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'Team ID',
   `name` varchar(255) NOT NULL COMMENT 'Team name',
   `courses` text NOT NULL COMMENT 'Courses that are part of the team',
+  `logo` mediumblob NOT NULL COMMENT 'Logo blob',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 COMMIT;
