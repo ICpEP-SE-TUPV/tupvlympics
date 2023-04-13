@@ -37,39 +37,29 @@ router.get('/categories', asyncWrap(async (req, res) => {
   const categories = []
   results.forEach((result) => {
     if (maincategory) {
-      if (result.maincategory !== '') {
-        let added = -1
-        for (let i = 0; i < categories.length; i++) {
-          const category = categories[i]
-          if (category.name === result.maincategory) {
-            added = i
-            break
-          }
+      let added = -1
+      for (let i = 0; i < categories.length; i++) {
+        const category = categories[i]
+        if (category.name === result.maincategory) {
+          added = i
+          break
         }
+      }
 
-        const matches = result.name.match(/^(.+) \((.+)\)$/)
-        if (matches === null) return
-        const subName = matches[2]
+      const matches = result.name.match(/^(.+) \((.+)\)$/)
+      const subName = matches !== null ? matches[2] : result.name
 
-        if (added < 0) {
-          categories.push({
-            ids: [result.id],
-            name: result.maincategory,
-            subs: [subName],
-            embed: [result.brackethq]
-          })
-        } else {
-          categories[added].ids.push(result.id)
-          categories[added].subs.push(subName)
-          categories[added].embed.push(result.brackethq)
-        }
-      } else {
+      if (added < 0) {
         categories.push({
           ids: [result.id],
-          name: result.name,
-          subs: [],
-          embed: result.brackethq
+          name: result.maincategory,
+          subs: [subName],
+          embed: [result.brackethq]
         })
+      } else {
+        categories[added].ids.push(result.id)
+        categories[added].subs.push(subName)
+        categories[added].embed.push(result.brackethq)
       }
     } else {
       categories.push({

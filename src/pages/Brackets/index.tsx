@@ -97,11 +97,13 @@ class Brackets extends React.Component<BracketsProps, BracketsState> {
                     { category.name }
                   </button>
 
-                  <div className="brackets-subs">
-                    { this.state.active === i && subs.map((sub, j) => (
-                      <button type="button" className={'bracket-btn my-1' + (this.state.sub === j ? ' active' : '')} onClick={this.subNav(j)} key={j}>{ sub }</button>
-                    ))}
-                  </div>
+                  { subs.length > 1 &&
+                    <div className="brackets-subs">
+                      { this.state.active === i && subs.map((sub, j) => (
+                        <button type="button" className={'bracket-btn my-1' + (this.state.sub === j ? ' active' : '')} onClick={this.subNav(j)} key={j}>{ sub }</button>
+                      ))}
+                    </div>
+                  }
                 </div>
               );
             })}
