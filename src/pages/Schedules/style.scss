@@ -25,4 +25,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  .schedule-day-container {
+    width: 24%;
+
+    .schedule-day { margin: auto; }
+  }
 }

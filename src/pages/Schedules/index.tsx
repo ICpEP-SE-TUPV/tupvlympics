@@ -91,7 +91,7 @@ class Schedules extends React.Component<SchedulesProps, SchedulesState> {
           <div className="schedules-list mt-5">
             { this.state.schedule.map((data, i) => {
               return (
-                <div className="schedule-day-container mr-5 mb-3" key={i}>
+                <div className="schedule-day-container mx-5 mb-3" key={i}>
                   <small>{ formatDate(data.date) }</small>
                   <div className="schedule-day py-3 px-2">
                     <ReactMarkdown>{ data.text }</ReactMarkdown>
