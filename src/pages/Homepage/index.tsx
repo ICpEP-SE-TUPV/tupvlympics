@@ -111,9 +111,9 @@ class Homepage extends React.Component<HomepageProps, HomepageState> {
                 <thead>
                   <tr>
                     <th></th>
-                    { this.state.categories.map((categories, i) => {
+                    { this.state.categories.map((category, i) => {
                       return (
-                        <th key={i}>{ categories.name }</th>
+                        <th key={i}>{ category.maincategory !== '' ? category.maincategory : category.name }</th>
                       );
                     })}
                   </tr>

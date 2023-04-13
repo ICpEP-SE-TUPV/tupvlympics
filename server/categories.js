@@ -27,7 +27,13 @@ const router = express.Router()
 router.get('/categories', asyncWrap(async (req, res) => {
   const embed = typeof req.query.embed !== 'undefined'
   const maincategory = typeof req.query.maincategory !== 'undefined'
-  const results = await database.query('SELECT * FROM categories' + (embed ? ' WHERE brackethq != ""' : ''))
+  const subcategory = typeof req.query.subcategory !== 'undefined'
+  const results = await database.query(
+    'SELECT * FROM categories' +
+    (embed ? ' WHERE brackethq != ""' : '') +
+    (!maincategory && !subcategory ? ' GROUP BY maincategory' : '')
+  )
+
   const categories = []
   results.forEach((result) => {
     if (maincategory) {
@@ -104,8 +110,30 @@ router.delete('/categories/:id', asyncWrap(async (req, res) => {
     return
   }
 
-  await database.query('DELETE FROM scores WHERE category=?', [id])
-  await database.query('DELETE FROM categories WHERE id=?', [id])
+  const results = await database.query('SELECT * FROM categories WHERE id=?', [id])
+  if (results.length === 0) {
+    res.json({
+      success: false,
+      message: 'No category found'
+    })
+    return
+  }
+
+  const category = results[0]
+  const maincategory = category.maincategory
+  if (maincategory !== '') {
+    const subsRes = await database.query('SELECT * FROM categories WHERE maincategory=?', [maincategory])
+    for (let i = 0; i < subsRes.length; i++) {
+      const sub = subsRes[i]
+      await database.query('DELETE FROM scores WHERE category=?', [sub.id])
+    }
+
+    await database.query('DELETE FROM categories WHERE maincategory=?', [maincategory])
+  } else {
+    await database.query('DELETE FROM scores WHERE category=?', [id])
+    await database.query('DELETE FROM categories WHERE id=?', [id])
+  }
+
   res.json({
     success: true,
     message: ''

@@ -74,7 +74,7 @@ class AdminBrackets extends React.Component<AdminBracketsProps, AdminBracketsSta
   async loadCategories () {
     try {
       const backend = process.env.REACT_APP_BACKEND_API;
-      const categoriesRes = await axios.get(`${backend}/api/categories`);
+      const categoriesRes = await axios.get(`${backend}/api/categories?subcategory=1`);
       if (categoriesRes.data.success) {
         const categories = categoriesRes.data.categories;
         this.setState({ categories });
