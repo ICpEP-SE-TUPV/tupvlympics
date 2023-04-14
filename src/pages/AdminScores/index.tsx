@@ -124,7 +124,7 @@ class AdminScores extends React.Component<AdminScoresProps, AdminScoresState> {
   async loadCategories () {
     try {
       const backend = process.env.REACT_APP_BACKEND_API;
-      const categoriesRes = await axios.get(`${backend}/api/categories`);
+      const categoriesRes = await axios.get(`${backend}/api/categories?subcategory=1`);
       if (categoriesRes.data.success) {
         const categories = categoriesRes.data.categories;
         this.setState({ categories });
@@ -165,7 +165,7 @@ class AdminScores extends React.Component<AdminScoresProps, AdminScoresState> {
               <option value=""></option>
               {
                 this.state.categories.map((category, i) => {
-                  return <option value={category.id} key={i}>{ category.maincategory }</option>;
+                  return <option value={category.id} key={i}>{ category.name }</option>;
                 })
               }
             </select>

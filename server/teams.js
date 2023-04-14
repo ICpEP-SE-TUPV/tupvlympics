@@ -59,7 +59,7 @@ router.get('/teams', asyncWrap(async (req, res) => {
   }
 
   if (tabulation) {
-    const catRes = await database.query('SELECT * FROM categories GROUP BY maincategory')
+    const catRes = await database.query('SELECT * FROM categories')
     for (let i = 0; i < teams.length; i++) {
       teams[i].tabulation = []
       for (let j = 0; j < catRes.length; j++) {
