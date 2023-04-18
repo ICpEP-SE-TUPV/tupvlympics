@@ -39,6 +39,10 @@
 }
 
 @media (min-width: 0) and (max-width: 992px) {
+  .teams-main {
+    padding: 40px 50px;
+  }
+
   .teams-team {
     flex-direction: column;
     align-items: center;
