@@ -88,7 +88,7 @@ class Brackets extends React.Component<BracketsProps, BracketsState> {
       <React.Fragment>
         <Header page="brackets" />
 
-        <main className="brackets-main p-5">
+        <main className="brackets-main">
           <div className="brackets-nav mx-3 mb-4">
             { this.state.categories.map((category, i) => {
               return (
