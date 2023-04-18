@@ -163,3 +163,10 @@
     width: 80%;
   }
 }
+
+@media (min-width: 0) and (max-width: 576px) {
+  .homepage-logo {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
