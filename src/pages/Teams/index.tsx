@@ -70,7 +70,7 @@ class Teams extends React.Component<TeamsProps, TeamsState> {
                 <img src={`${backend}/api/teams/${team.id}/logo`} alt={`${team.name} Logo`} width={200} height={200} />
                 <div className="teams-team-details">
                   <h2>{ team.name }</h2>
-                  <p className="px-5">{ team.courses }</p>
+                  <p>{ team.courses }</p>
                 </div>
               </div>
             );

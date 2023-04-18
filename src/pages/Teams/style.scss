@@ -33,6 +33,8 @@
     }
 
     p {
+      padding-left: 3rem;
+      padding-right: 3rem;
       font-size: 1.25em;
     }
   }
@@ -46,5 +48,10 @@
   .teams-team {
     flex-direction: column;
     align-items: center;
+
+    .teams-team-details p {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
