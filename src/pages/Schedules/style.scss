@@ -19,6 +19,11 @@
 .schedules-teams {
   display: flex;
   justify-content: center;
+
+  img {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
 
 .schedules-list {
@@ -30,5 +35,20 @@
     width: 24%;
 
     .schedule-day { margin: auto; }
+  }
+}
+
+@media (min-width: 0) and (max-width: 576px) {
+  .schedule-day-container {
+    width: auto !important;
+  }
+
+  .schedules-teams {
+    overflow-x: scroll;
+
+    img {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
   }
 }
