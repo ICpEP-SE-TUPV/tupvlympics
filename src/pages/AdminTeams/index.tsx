@@ -205,13 +205,12 @@ class AdminTeams extends React.Component<AdminTeamsProps, AdminTeamsState> {
 
   render () {
     const backend = process.env.REACT_APP_BACKEND_API;
-    const timestamp = Date.now();
     const teams: React.ReactNode[] = [];
     for (let i = 0; i < this.state.teams.length; i++) {
       const team = this.state.teams[i];
       teams.push(
         <div className="admin-team mt-3" key={i}>
-          <img src={`${backend}/api/teams/${team.id}/logo?t=${timestamp}`} alt={`${team.name} Logo`} width={100} height={100} className="mr-3" />
+          <img src={`${backend}/api/teams/${team.id}/logo`} alt={`${team.name} Logo`} width={100} height={100} className="mr-3" />
           <div className="px-2">
             <h3>{ team.name }</h3>
             <p>{ team.courses }</p>
